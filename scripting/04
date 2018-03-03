@@ -1,11 +1,15 @@
 #!/bin/bash
 
-mkdir -p /root/scripts; echo `md5sum /etc/crontab` > /root/scripts/last; echo '#Nom du fichier à surveiller
+apt-get install -y mailutils postfix libsasl2-2 ca-certificates libsasl2-modules
+
+mkdir -p /root/scripts; echo `md5sum /etc/crontab` > /root/scripts/last
+
+echo '#Nom du fichier à surveiller
 NOM_FICHIER="/etc/crontab"
 # Date de la dernière modification du fichier ci-dessus
 DERNIERE_MODIF=`md5sum ${NOM_FICHIER}`
 # Adresse mail de l administrateur ou de la personne à prévenir
-MAIL_ADMIN="hmassonn@student.42.fr"
+MAIL_ADMIN="toussaint.boos@gmail.com"
 # Date a laquelle le fichier à bien été modifié par vos soins
 DATE_MODIF="$(cat /root/scripts/last)"
 # Test si les deux dates sont identiques
@@ -14,4 +18,6 @@ if [ "${NOM_FICHIER}" != "${DATE_MODIF}" ]; then
   CORPS_MESSAGE="Alerte, le fichier ${NOM_FICHIER} a été modifié le ${DERNIERE_MODIF}";
   echo "$CORPS_MESSAGE" | mail -s "Alerte surveillance modification de fichier" ${MAIL_ADMIN}";
   echo `md5sum /etc/crontab` > /root/scripts/last"
-fi' > /root/scripts/check_date.sh; echo "*/3 * * * * /root/scripts/check_date.sh" | crontab -;
+fi' > /root/scripts/check_date.sh;
+
+(crontab -l 2>/dev/null; echo "* * * * * /root/scripts/check_date.sh") | crontab -;
