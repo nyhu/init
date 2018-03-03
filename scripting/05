@@ -1,0 +1,1 @@
+curl 'https://www.google.ru/?q=the+answer+to+life%2c+the+universe+and+everything' 2>/dev/null | grep 42 | sed 's/^$/42/g'

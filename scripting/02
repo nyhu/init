@@ -1,0 +1,4 @@
+echo '(apt-get upgrade && apt-get update) > /var/log/update_script.log' | sudo bash
+# Every monday at 04:00
+(sudo crontab -l 2>/dev/null; echo '0 4 * * 1 apt-get upgrade && apt-get update > /var/log/update_script.log') | sudo crontab -
+# to verify run $ sudo crontab -l

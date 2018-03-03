@@ -1,0 +1,3 @@
+with /etc/issue we get the linux distribution,
+we find distrib version on in /etc/debian_version
+This might not work on other linux distributions.
