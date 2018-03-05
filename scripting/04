@@ -18,6 +18,7 @@ if [ "${NOM_FICHIER}" != "${DATE_MODIF}" ]; then
   CORPS_MESSAGE="Alerte, le fichier ${NOM_FICHIER} a été modifié le ${DERNIERE_MODIF}";
   echo "$CORPS_MESSAGE" | mail -s "Alerte surveillance modification de fichier" ${MAIL_ADMIN}";
   echo `md5sum /etc/crontab` > /root/scripts/last"
-fi' > /root/scripts/check_date.sh;
+fi' > /root/scripts/check_date.sh
+chmod +x /root/scripts/check_date.sh
 
-(crontab -l 2>/dev/null; echo "* * * * * /root/scripts/check_date.sh") | crontab -;
+(crontab -l 2>/dev/null; echo "* * * * * /root/scripts/check_date.sh") | crontab -
